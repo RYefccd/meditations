@@ -1,3 +1,5 @@
 # ingnore files for git
 
 tmp/
+_build/
+.vscode/

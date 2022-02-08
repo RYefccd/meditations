@@ -1,16 +1,9 @@
-# Welcome to your Jupyter Book
+# 技术点归档
 
-This is a small sample book to give you a feel for how book content is
-structured.
+这是一份多人协作文档, 大家会将自己的擅长技术以可操作, 可协作, 可执行的方式加以构建.
+用于技术的学习和分享.
 
 :::{note}
-Here is a note!
+希望这是所有故事的开始.
 :::
 
-And here is a code block:
-
-```
-e = mc^2
-```
-
-Check out the content pages bundled with this sample book to see more.
