@@ -1,5 +1,6 @@
-
-black==21.12b0
+# Black is the uncompromising Python code formatter. netlify docker image use  black==22.1.0 require click>=8.0.0
+# so fix version black==21.12b0 for netlify build docs.
+# black==21.12b0  # if not use netlify build docs didn't require black package.
 numpy
 matplotlib
 jupyter-book
