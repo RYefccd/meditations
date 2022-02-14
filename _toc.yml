@@ -4,5 +4,9 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
+
+- file: timescaledb/timescaledb_usage
+  sections:
+  - file: timescaledb/timescaledb_intro
+  - file: timescaledb/install
+  - file: timescaledb/usage_method
