@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimescaleDB使用 &#8212; Meditations</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="TimescaleDB配置安装" href="install.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Meditations</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="搜索这本书..." aria-label="搜索这本书..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   技术点归档
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="timescaledb_usage.html">
+   TimescaleDB
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="timescaledb_intro.html">
+     TimescaleDB简介
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="install.html">
+     TimescaleDB配置安装
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     TimescaleDB使用
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="切换导航" aria-controls="site-navigation"
+                title="切换导航" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="下载此页面"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/timescaledb/usage_method.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="下载源文件" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="列印成PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="源库"><i
+                    class="fab fa-github"></i>资料库</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftimescaledb/usage_method.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="打开一个问题"><i class="fas fa-lightbulb"></i>公开的问题</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="全屏模式"
+        title="全屏模式"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>TimescaleDB使用</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="timescaledb">
+<h1>TimescaleDB使用<a class="headerlink" href="#timescaledb" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>本示例是以线上3.0秒级别数据统计业务诉求为例</p>
+</div></blockquote>
+<p>创建hypertable需要两个步骤。首先使用CREATE TABLE语句创建一个常规关系表，
+然后使用SELECT语句和create hypertable函数将表转换为超表。
+SELECT语句需要转换的表的名称，以及表中时间列的名称。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">create</span> <span class="n">table</span> <span class="n">captcha_detail_log</span><span class="p">(</span>
+<span class="n">iso_time</span>  <span class="n">TIMESTAMPTZ</span>     <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+<span class="n">captcha_id</span>    <span class="n">varchar</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>    <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+<span class="n">method</span>    <span class="n">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span>
+<span class="nb">type</span>    <span class="n">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span>
+<span class="n">result</span>    <span class="n">varchar</span><span class="p">(</span><span class="mi">128</span><span class="p">),</span>
+<span class="n">drag_count</span>    <span class="n">smallint</span>
+<span class="p">);</span>
+
+<span class="n">select</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="s1">&#39;iso_time&#39;</span><span class="p">,</span> <span class="p">,</span> <span class="n">if_not_exists</span> <span class="o">=&gt;</span> <span class="n">TRUE</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看hypertable元信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">timescaledb_information</span><span class="o">.</span><span class="n">hypertables</span> <span class="n">WHERE</span> <span class="n">hypertable_name</span> <span class="o">=</span> <span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>查看hypertable维度的信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">timescaledb_information.dimensions</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">hypertable_name</span><span class="p">,</span> <span class="n">dimension_number</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>根据实际的业务诉求来设置块的大小，块的大小按照时间间隔来区分。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">set_chunk_time_interval</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span><span class="mi">600000000</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">set_chunk_time_interval</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span><span class="n">INTERVAL</span> <span class="s1">&#39;10 minutes&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看与hypertable关联的块的信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">show_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">show_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">older_than</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;3 hours&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">show_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">newer_than</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;3 hours&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">show_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">older_than</span> <span class="o">=&gt;</span> <span class="n">DATE</span> <span class="s1">&#39;2022-02-09&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看hypertable块的元信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">timescaledb_information</span><span class="o">.</span><span class="n">chunks</span> <span class="n">WHERE</span> <span class="n">hypertable_name</span> <span class="o">=</span> <span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>删除指定时间范围内的数据快</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">drop_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">&#39;3 hours&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">drop_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">newer_than</span> <span class="o">=&gt;</span> <span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">interval</span> <span class="s1">&#39;3 hours&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">drop_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-02-08&#39;</span><span class="p">::</span><span class="n">date</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">drop_chunks</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">older_than</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;3 hours&#39;</span><span class="p">,</span> <span class="n">newer_than</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;4 hours&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>hypertable开启压缩并设置压缩选项</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALTER</span> <span class="n">TABLE</span> <span class="n">captcha_detail_log</span> <span class="n">SET</span> <span class="p">(</span><span class="n">timescaledb</span><span class="o">.</span><span class="n">compress</span><span class="p">,</span> <span class="n">timescaledb</span><span class="o">.</span><span class="n">compress_segmentby</span> <span class="o">=</span> <span class="s1">&#39;captcha_id&#39;</span><span class="p">,</span> <span class="n">timescaledb</span><span class="o">.</span><span class="n">compress_orderby</span> <span class="o">=</span> <span class="s1">&#39;iso_time&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>hypertable关闭压缩</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALTER</span> <span class="n">TABLE</span> <span class="n">captcha_detail_log</span> <span class="n">SET</span> <span class="p">(</span><span class="n">timescaledb</span><span class="o">.</span><span class="n">compress</span><span class="o">=</span><span class="n">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看hypertable压缩相关的设置信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">timescaledb_information</span><span class="o">.</span><span class="n">compression_settings</span> <span class="n">WHERE</span> <span class="n">hypertable_name</span> <span class="o">=</span> <span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>参数说明</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timescaledb.compress</p></td>
+<td><p>BOOLEAN</p></td>
+<td><p>开启或关闭压缩</p></td>
+</tr>
+<tr class="row-odd"><td><p>timescaledb.compress_orderby</p></td>
+<td><p>TEXT</p></td>
+<td><p>压缩使用的顺序，与SELECT查询中的Order by子句指定的方式相同。默认值是hypertable的时间列的降序。</p></td>
+</tr>
+<tr class="row-even"><td><p>timescaledb.compress_segmentby</p></td>
+<td><p>TEXT</p></td>
+<td><p>表示数据来源的标识符，例如device_id或tags_id通常是一个很好的选择。默认为无segment by列。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>查看所有hypertable策略和策略状态</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">timescaledb_information.jobs</span><span class="p">;</span>
+<span class="n">select</span> <span class="o">*</span> <span class="kn">from</span> <span class="nn">timescaledb_information.job_stats</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>更改策略触发计划</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">alter_job</span><span class="p">(</span><span class="mi">1047</span><span class="p">,</span> <span class="n">scheduled</span> <span class="o">=&gt;</span> <span class="n">false</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">alter_job</span><span class="p">(</span><span class="mi">1047</span><span class="p">,</span> <span class="n">schedule_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;2 hours&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">alter_job</span><span class="p">(</span><span class="mi">1047</span><span class="p">,</span> <span class="n">next_start</span> <span class="o">=&gt;</span> <span class="s1">&#39;2022-02-10 09:00:00.0+00&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>参数说明</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>schedule_interval</p></td>
+<td><p>INTERVAL</p></td>
+<td><p>策略运行的时间间隔，默认为24小时。</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_runtime</p></td>
+<td><p>INTERVAL</p></td>
+<td><p>在策略停止之前，后台工作调度器允许作业运行的最长时间。</p></td>
+</tr>
+<tr class="row-even"><td><p>max_retries</p></td>
+<td><p>INTEGER</p></td>
+<td><p>如果策略运行失败，重试的次数。</p></td>
+</tr>
+<tr class="row-odd"><td><p>retry_period</p></td>
+<td><p>INTERVAL</p></td>
+<td><p>在失败时，调度程序在策略重试之间等待的时间。</p></td>
+</tr>
+<tr class="row-even"><td><p>scheduled</p></td>
+<td><p>BOOLEAN</p></td>
+<td><p>如果设置为FALSE，则不允许该策略作为后台策略运行。</p></td>
+</tr>
+<tr class="row-odd"><td><p>config</p></td>
+<td><p>JSONB</p></td>
+<td><p>特定于策略的配置。</p></td>
+</tr>
+<tr class="row-even"><td><p>next_start</p></td>
+<td><p>TIMESTAMPTZ</p></td>
+<td><p>下次运行策略的时间。可以通过将此值设置为无穷大来暂停策略，然后使用now()的值重新启动。</p></td>
+</tr>
+<tr class="row-odd"><td><p>if_exists</p></td>
+<td><p>BOOLEAN</p></td>
+<td><p>如果任务不存在，设置为true则发出一个通知而不是一个错误。默认值为false。。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>设置hypertable压缩策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">add_compression_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">&#39;10 minutes&#39;</span><span class="p">,</span> <span class="n">if_not_exists</span> <span class="o">=&gt;</span> <span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>删除hypertable压缩策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">remove_compression_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>压缩指定的块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">compress_chunk</span><span class="p">(</span><span class="s1">&#39;_timescaledb_internal._hyper_1_2_chunk&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>解压缩指定的块</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">decompress_chunk</span><span class="p">(</span><span class="s1">&#39;_timescaledb_internal._hyper_1_2_chunk&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看hypertable压缩相关的指定块的统计信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">chunk_compression_stats</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">chunk_name</span><span class="p">,</span> <span class="n">compression_status</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_total</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_total</span><span class="p">,</span> <span class="n">node_name</span> <span class="n">FROM</span> <span class="n">chunk_compression_stats</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">)</span> <span class="n">order</span> <span class="n">by</span> <span class="n">chunk_name</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>查看hypertable的块所使用的磁盘空间的信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">chunks_detailed_size</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">)</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">chunk_name</span><span class="p">,</span> <span class="n">node_name</span><span class="p">;</span>
+<span class="n">SELECT</span> <span class="n">chunk_schema</span><span class="p">,</span> <span class="n">chunk_name</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">table_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">table_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">index_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">index_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">toast_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">toast_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_bytes</span> <span class="n">FROM</span> <span class="n">chunks_detailed_size</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">)</span> <span class="n">ORDER</span> <span class="n">BY</span> <span class="n">chunk_name</span><span class="p">,</span> <span class="n">node_name</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>查看hypertable中指定索引的大小</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">hypertable_index_size</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log_iso_time_idx&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">hypertable_index_size</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log_iso_time_idx&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">hypertable_index_size</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>查看hypertable压缩相关的统计信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">hypertable_compression_stats</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">total_chunks</span><span class="p">,</span> <span class="n">number_compressed_chunks</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_table_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_table_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_index_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_index_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_toast_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_toast_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_total_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_table_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_table_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_index_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_index_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_toast_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_toast_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_total_bytes</span><span class="p">,</span> <span class="n">node_name</span> <span class="n">FROM</span> <span class="n">hypertable_compression_stats</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>查看hypertable使用的磁盘空间的详细信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">hypertable_detailed_size</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+<span class="n">SELECT</span> <span class="n">total_chunks</span><span class="p">,</span> <span class="n">number_compressed_chunks</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_table_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_table_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_index_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_index_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_toast_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_toast_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">before_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">before_compression_total_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_table_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_table_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_index_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_index_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_toast_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_toast_bytes</span><span class="p">,</span> <span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">after_compression_total_bytes</span><span class="p">)</span> <span class="k">as</span> <span class="n">after_compression_total_bytes</span><span class="p">,</span> <span class="n">node_name</span> <span class="n">FROM</span> <span class="n">hypertable_compression_stats</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>创建连续聚合视图</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CREATE</span> <span class="n">MATERIALIZED</span> <span class="n">VIEW</span> <span class="n">captcha_detail_second</span>
+<span class="n">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="o">.</span><span class="n">continuous</span><span class="p">)</span> <span class="n">AS</span>
+<span class="n">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="n">INTERVAL</span> <span class="s1">&#39;1 second&#39;</span><span class="p">,</span> <span class="n">iso_time</span><span class="p">)</span> <span class="n">AS</span> <span class="n">second</span><span class="p">,</span>
+       <span class="n">captcha_id</span><span class="p">,</span>
+       <span class="n">method</span><span class="p">,</span>
+       <span class="nb">type</span><span class="p">,</span>
+       <span class="n">result</span><span class="p">,</span>
+       <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="n">FROM</span> <span class="n">captcha_detail_log</span> <span class="n">where</span> <span class="ow">not</span> <span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;Ajax&#39;</span> <span class="ow">and</span> <span class="nb">type</span> <span class="n">like</span> <span class="s1">&#39;%_slide&#39;</span> <span class="ow">and</span> <span class="n">drag_count</span> <span class="o">&lt;</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;fail&#39;</span><span class="p">)</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="k">with</span> <span class="n">no</span> <span class="n">data</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>如果没有给出with no data，连续聚合视图将自动刷新</p>
+</div>
+<p>查看连续聚合视图的元信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="o">*</span> <span class="n">FROM</span> <span class="n">timescaledb_information</span><span class="o">.</span><span class="n">continuous_aggregates</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>修改连续聚合视图</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">连续聚合禁用实时聚合</span>
+<span class="n">ALTER</span> <span class="n">MATERIALIZED</span> <span class="n">VIEW</span> <span class="n">captcha_detail_second</span> <span class="n">SET</span> <span class="p">(</span><span class="n">timescaledb</span><span class="o">.</span><span class="n">materialized_only</span> <span class="o">=</span> <span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ALTER MATERIALIZED VIEW 其他用法</p>
+<ul class="simple">
+<li><p>RENAME TO  重命名连续聚合视图</p></li>
+<li><p>SET SCHEMA  设置连续聚合视图新的SCHEMA</p></li>
+<li><p>SET TABLESPACE  将连续聚合视图的实体化移动到新的表空间</p></li>
+<li><p>OWNER TO  设置连续聚合视图新的所有者</p></li>
+</ul>
+<p>删除连续聚合视图</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DROP</span> <span class="n">MATERIALIZED</span> <span class="n">VIEW</span> <span class="n">captcha_detail_second</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>创建自动刷新连续聚合的策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">add_continuous_aggregate_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_second&#39;</span><span class="p">,</span>
+    <span class="n">start_offset</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;1 minutes&#39;</span><span class="p">,</span>
+    <span class="n">end_offset</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;1 second&#39;</span><span class="p">,</span>
+    <span class="n">schedule_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">&#39;3 seconds&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>手动刷新刷新连续聚合</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CALL</span> <span class="n">refresh_continuous_aggregate</span><span class="p">(</span><span class="s1">&#39;captcha_detail_second&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-02-09&#39;</span><span class="p">,</span> <span class="s1">&#39;2020-02-10&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>删除连续聚合的刷新策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">remove_continuous_aggregate_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_second&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>创建自动清除块数据的策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">add_retention_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">&#39;2 days&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>删除自动清除块数据的策略</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">remove_retention_policy</span><span class="p">(</span><span class="s1">&#39;captcha_detail_log&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./timescaledb"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="install.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">TimescaleDB配置安装</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      通过 扯淡<br/>
+    
+        &copy; 版权 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
